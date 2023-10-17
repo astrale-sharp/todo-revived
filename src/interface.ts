@@ -1,86 +1,88 @@
-export type Data = {
-    [key: string]: Array<TodoElem>
-}
 
-export type TodoElem = {
-    date: number
-    dateString: String
-    checked: boolean
-    text: String
-}
-
-export function createTodoElem(text: string, date: number = Date.now())  {
-    let d = new Date()
-    d.setDate(date)
-    // let d = new Date()
-
-    let d_fmt = String(d.toLocaleDateString()) + "\n" 
-        + String(d.getHours()) + "h:" 
-        + String(d.getMinutes()) + "min:" 
+export class TodoElem {
+    "date": number
+    "dateString": String
+    "checked": boolean
+    "text": String
+    constructor(text: string, date: number = Date.now()) {
+        let d = new Date(date)
+        let d_fmt = String(d.toLocaleDateString()) + "\n"
+            + String(d.getHours()) + "h:"
+            + String(d.getMinutes()) + "min:"
         // + String(d.getSeconds()) + "sec"
-    return {
-        date: date,
-        checked: false,
-        text: text,
-        dateString: d_fmt
+        return {
+            date: date,
+            checked: false,
+            text: text,
+            dateString: d_fmt
+        }
     }
 }
 
 
-export function addList(data: Data) {
-    let number = 0
-    let lname = "TodoList " + String(number)
-    while (Object.keys(data).includes(lname)) {
-        number += 1
-        lname = "TodoList " + String(number)
+export class Data {
+    "lists": { [key: string]: Array<TodoElem> }
+
+    addList(name: string | undefined) {
+        if (name !== undefined) {
+            this.lists[name] = []
+            return
+        }
+
+        let number = 0
+        let lname = "TodoList " + String(number)
+        while (Object.keys(this.lists).includes(lname)) {
+            number += 1
+            lname = "TodoList " + String(number)
+        }
+        this.lists[lname] = []
     }
-    let updated = { ...data }
-    updated[lname] = []
-    return updated
-}
+    removeList(listName: string) {
+        delete this.lists[listName]
+    }
 
-export function removeList(data: Data, listName: string) {
-    let updated : Data = { ...data }
-    delete updated[listName]
-    return updated
+    addElemToList(listName: string, text?: string) {
+        this.lists[listName].push(new TodoElem(text ?? "Task"))
+    }
 
-}
+    removeElemToList(listName: string, elemDate: number) {
+        this.lists[listName] = this.lists[listName].filter((x) => x.date !== elemDate)
+    }
+    modifyTextFromListElem(listName: string, elemDate: number, newText: String) {
+        this.lists[listName] = this.lists[listName].map((x: TodoElem) => {
+            if (x.date === elemDate) {
+                x.text = newText
+                return x
+            } else {
+                return x
+            }
+        })
+    }
+    toggleItemFromList(listName: string, elemDate: number) {
+        this.lists[listName] = this.lists[listName].map((x: TodoElem) => {
+            if (x.date === elemDate) {
+                x.checked = !x.checked
+                return x
+            } else {
+                return x
+            }
+        })
+    }
+    listEntries() {
+        return Object.entries(this.lists)
+    }
 
-export function addElemToList(data: Data, listName: string) {
-    let updated = { ...data }
-    updated[listName].push(createTodoElem(""))
-    return updated
-}
 
-export function removeElemToList(data: Data, listName: string, elemDate: number) {
-    let updated = { ...data }
-    updated[listName] = updated[listName].filter((x) => x.date != elemDate)
-    return updated
-}
-
-export function modifyTextFromListElem(data: Data, listName: string, elemDate: number, newText: String) {
-    let updated = { ...data }
-    updated[listName] = updated[listName].map((x: TodoElem) => {
-        if (x.date == elemDate) {
-            x.text = newText
-            return x
-        } else {
-            return x
+    constructor() {
+        return {
+            lists: {},
+            addList: this.addList,
+            removeList: this.removeList,
+            addElemToList: this.addElemToList,
+            removeElemToList: this.removeElemToList,
+            modifyTextFromListElem: this.modifyTextFromListElem,
+            toggleItemFromList: this.toggleItemFromList,
+            listEntries: this.listEntries,
         }
-    })
-    return updated
+    }
 }
-
-export function toggleItemFromList(data: Data, listName: string, elemDate: number) {
-    let updated = { ...data }
-    updated[listName] = updated[listName].map((x: TodoElem) => {
-        if (x.date == elemDate) {
-            x.checked = !x.checked
-            return x
-        } else {
-            return x
-        }
-    })
-    return updated
-}
-
