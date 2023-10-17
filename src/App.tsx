@@ -1,11 +1,30 @@
 import React, { useState } from 'react';
+import * as I from './interface'
 import './App.css';
+import Listcontainer from './Listcontainer'
 
 function App() {
-  let [todos, setTodos] = useState({
-    "my cool list": []
-  })
+  //list data
+  let [data, setData] = useState<I.Data>(
+    new I.Data()
+  )
+  // selected/highlighted data
+  const [listSelector, setListSelector] = useState<Array<string>>([])
 
+  let list_selected = data.listEntries().filter(([list_name, todos]) => listSelector.includes(list_name))
+  let list_unselected = data.listEntries().filter(([list_name, todos]) => !listSelector.includes(list_name))
+
+  let map = (x : [string, I.TodoElem[]][]) => x.map(([list_name, todos]) =>
+   ( <Listcontainer
+      data={data}
+      setData={setData}
+      key={list_name}
+      name={list_name}
+      elems={todos}
+    >
+    </Listcontainer>))
+  let list_selected_el = map(list_selected)
+  let list_unselected_el = map(list_unselected)
 
   return (
     <div id="root" className="vbox">
