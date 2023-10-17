@@ -16,8 +16,23 @@
   padding: 0;
 
   width: 100%;
-  height: auto;
+  min-height: 100%;
+  /* height: fit-content; */
+  /* overflow: auto; */
   background-color: gainsboro;
+}
+
+[class*="footer"] {
+  margin: 0;
+  inset: 0;
+  padding: 0;
+
+  position: sticky;
+  background-color: black;
+  color: white;
+  height: 70px;
+  align-self: flex-end;
+  text-align: center;
 }
 
 [class*="test"] {
@@ -26,10 +41,13 @@
   padding: 0;
   /* background-color: brown; */
   border-block: 2px dashed red;
+  /* border: 2px dashed red; */
 }
 
+[class*="vbox"],
+[class*="hbox"],
 [class*="box"] {
-  display: inline-block;
+  display: inline-flex;
   width: fit-content;
   height: fit-content;
   margin: 0;
@@ -58,6 +76,7 @@
   align-self: center;
   justify-self: center;
 
+  margin: auto;
   align-content: center;
   justify-content: center;
 }
