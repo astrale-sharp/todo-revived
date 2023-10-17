@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  let [todos,setTodos] = useState({
+  let [todos, setTodos] = useState({
     "my cool list": []
   })
 
@@ -53,9 +53,9 @@ function App() {
           </div>
         </div>
       </div>
-        <footer className="box footer expandXY expandCXY" style={{minHeight: 70}}>
-          <div className='center'>Not connected to the server</div>
-        </footer>
+      <footer className="box footer expandXY expandCXY" style={{ minHeight: 70 }}>
+        <div className='center'>Not connected to the server</div>
+      </footer>
     </div>
 
 
