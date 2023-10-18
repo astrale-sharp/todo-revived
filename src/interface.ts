@@ -23,33 +23,42 @@ export class TodoElem {
 export class Data {
     "lists": { [key: string]: Array<TodoElem> }
 
-    addList(name: string | undefined) {
+    addList(name?: string) {
+        let copy = {...this}
         if (name !== undefined) {
-            this.lists[name] = []
+            copy.lists[name] = []
             return
         }
 
         let number = 0
         let lname = "TodoList " + String(number)
-        while (Object.keys(this.lists).includes(lname)) {
+        while (Object.keys(copy.lists).includes(lname)) {
             number += 1
             lname = "TodoList " + String(number)
         }
-        this.lists[lname] = []
+        copy.lists[lname] = []
+        return copy
     }
     removeList(listName: string) {
-        delete this.lists[listName]
+        let copy = {...this}
+        delete copy.lists[listName]
+        return copy
     }
 
-    addElemToList(listName: string, text?: string) {
-        this.lists[listName].push(new TodoElem(text ?? "Task"))
+    addElemToList(listName: string, elem?: TodoElem) {
+        let copy = {...this}
+        copy.lists[listName].push(elem ?? new TodoElem("Task"))
+        return copy
     }
 
     removeElemToList(listName: string, elemDate: number) {
-        this.lists[listName] = this.lists[listName].filter((x) => x.date !== elemDate)
+        let copy = {...this}
+        copy.lists[listName] = copy.lists[listName].filter((x) => x.date !== elemDate)
+        return copy
     }
     modifyTextFromListElem(listName: string, elemDate: number, newText: String) {
-        this.lists[listName] = this.lists[listName].map((x: TodoElem) => {
+        let copy = {...this}
+        copy.lists[listName] = copy.lists[listName].map((x: TodoElem) => {
             if (x.date === elemDate) {
                 x.text = newText
                 return x
@@ -57,16 +66,23 @@ export class Data {
                 return x
             }
         })
+        return copy
     }
     toggleItemFromList(listName: string, elemDate: number) {
-        this.lists[listName] = this.lists[listName].map((x: TodoElem) => {
+        let copy = {...this}
+
+        let found = false
+        copy.lists[listName] = copy.lists[listName].map((x: TodoElem) => {
             if (x.date === elemDate) {
+                found = true
                 x.checked = !x.checked
                 return x
             } else {
                 return x
             }
         })
+        if (!found) {console.warn("invalid elemData in toggleItemFromList")}
+        return copy
     }
     listEntries() {
         return Object.entries(this.lists)
