@@ -5,7 +5,7 @@
     test, box, hbox, vbox, center, expandXY, expandX, expandY,
     space-around, space-between
     
-    expandCXY, children-elem,
+    expandCXY, children-elem, auto-marginC
 */
 
 #root {
@@ -109,6 +109,9 @@
   justify-content: space-between;
 }
 
+[class*="auto-marginC"]>* {
+  margin: auto;
+}
 
 .elems,
 [class*="children-elem"]>* {
