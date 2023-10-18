@@ -64,6 +64,12 @@
   overflow: visible;
 }
 
+
+[class*="box"]>* {
+  display: inline-flex;
+}
+
+
 [class*="vbox"] {
   flex-direction: column;
 }
