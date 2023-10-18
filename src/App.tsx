@@ -3,11 +3,18 @@ import { Data, TodoElem } from './interface'
 import './App.css';
 import Listcontainer from './Listcontainer'
 
+const init = () => {
+  let data = new Data()
+  let listName = "My dang list"
+  data.addList(listName)
+  data.addElemToList(listName, new TodoElem("Do the thing", Date.now() - 1000 * 3600))// one hour ago
+  data.addElemToList(listName, new TodoElem("Wake up", Date.now()))// one hour ago
+  return data
+}
+
 function App() {
   //list data
-  let [data, setData] = useState<I.Data>(
-    new I.Data()
-  )
+  let [data, setData] = useState<Data>(init())
   // selected/highlighted data
   const [listSelector, setListSelector] = useState<Array<string>>([])
 
