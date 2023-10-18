@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import * as I from './interface'
+import { Data, TodoElem } from './interface'
 import './App.css';
 import Listcontainer from './Listcontainer'
 
