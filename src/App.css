@@ -15,9 +15,10 @@
   inset: 0;
   padding: 0;
 
-  width: 100%;
+  min-width: 100%;
   min-height: 100%;
-  /* height: fit-content; */
+  height: fit-content;
+  width: fit-content;
   /* overflow: auto; */
   background-color: gainsboro;
 }
