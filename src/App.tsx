@@ -47,10 +47,14 @@ function App() {
       </div>
 
       <div className="hbox expandXY">
+        <Listselector
+          lists={Object.keys(data.lists)}
+          setData={setData}
+        ></Listselector>
         {list_selected_el}
         {list_unselected_el}
       </div>
-      <footer className="box footer expandXY expandCXY" style={{ minHeight: 70 }}>
+      <footer className="box footer expandXY expandCXY" style={{ minHeight: 70, marginTop: "auto" }}>
         <div className='center'>Not connected to the server</div>
       </footer>
     </div>
