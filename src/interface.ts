@@ -47,7 +47,10 @@ export class Data {
 
     addElemToList(listName: string, elem?: TodoElem) {
         let copy = {...this}
-        copy.lists[listName].push(elem ?? new TodoElem("Task"))
+        let newelem = elem ?? new TodoElem("Task")
+        if (!copy.lists[listName].find(x => x.date == newelem.date)) {
+            copy.lists[listName].push(newelem)
+        }
         return copy
     }
 
