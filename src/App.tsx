@@ -56,7 +56,7 @@ function App() {
         {list_selected_el}
         {list_unselected_el}
       </div>
-      <footer className="box footer expandXY expandCXY" style={{ minHeight: 70, marginTop: "auto" }}>
+      <footer className="box footer expandXY expandCXY" style={{ minHeight: 70 }}>
         <div className='center'>Not connected to the server</div>
       </footer>
     </div>

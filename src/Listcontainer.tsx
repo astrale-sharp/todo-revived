@@ -17,6 +17,7 @@ const buttonStyle = {
 
 export type ListProps = {
     data: Data,
+    setData: any,
     name: string,
     elements: TodoElem[],
     [key: string]: any,
@@ -33,7 +34,7 @@ function Listcontainer(props: ListProps) {
         <Todoelcomponent
             key={x.date}
             value={x}
-            setData={(x: Data) => props.setData(x)}
+            setData={props.setData}
             pprops={props}
         ></Todoelcomponent>
     );
@@ -41,11 +42,11 @@ function Listcontainer(props: ListProps) {
     return (
         <div id="todo-list-container" className="vbox expandY">
             <div className="center expandXY hbox space-between"
-                style={{ 
+                style={{
                     border: "1px black solid",
                     backgroundColor: "aliceblue",
                     minHeight: 30
-                    }}>
+                }}>
                 <div
                     className="expandX center">
                     {props.name}</div>
@@ -56,10 +57,9 @@ function Listcontainer(props: ListProps) {
                         x
                     </div>
                 </button>
-
             </div>
 
-            <div className="vbox expandXY children-elem"
+            <div className="vbox expandXY"
                 style={{
                     minWidth: 300,
                     minHeight: 700,
