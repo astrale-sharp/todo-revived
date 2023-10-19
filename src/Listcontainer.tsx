@@ -67,7 +67,8 @@ function Listcontainer(props: ListProps) {
                 </button>
                 <div
                     className="expandX center">
-                    {props.name}</div>
+                    {props.name}
+                </div>
                 <button
                     onClick={() => props.setData((data: Data) => data.removeList(props.name))}
                     style={{ color: "red", ...buttonStyle }}>
