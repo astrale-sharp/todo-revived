@@ -23,7 +23,7 @@ function Todoelcomponent(props: { value: TodoElem, pprops: ListProps, setData: a
 
 
     return (
-        <div className='hbox space-between expandXY'>
+        <div className='hbox space-between expandXY self-elem'>
             <button
                 className=''
                 style={{ ...buttonStyle }}
@@ -35,7 +35,9 @@ function Todoelcomponent(props: { value: TodoElem, pprops: ListProps, setData: a
                 </div>
             </button>
             <div>{props.value.text}</div>
-            <button style={{ color: "red", ...buttonStyle }}>
+            <button
+                onClick={() => { setData((data: Data) => data.removeElemToList(pp.name, props.value.date)) }}
+                style={{ color: "red", ...buttonStyle }}>
                 <div className='' style={{ margin: "auto", padding: "auto", }}>
                     x
                 </div>
