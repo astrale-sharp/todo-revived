@@ -120,7 +120,7 @@
   margin: auto;
 }
 
-.elems,
+[class*="self-elem"],
 [class*="children-elem"]>* {
   display: inline-flex;
   position: static;
