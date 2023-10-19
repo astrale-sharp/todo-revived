@@ -3,13 +3,13 @@ export class TodoElem {
     "date": number
     "dateString": String
     "checked": boolean
-    "text": String
+    "text": string
     constructor(text: string, date: number = Date.now()) {
         let d = new Date(date)
         let d_fmt = String(d.toLocaleDateString()) + "\n"
             + String(d.getHours()) + "h:"
             + String(d.getMinutes()) + "min:"
-        // + String(d.getSeconds()) + "sec"
+            + String(d.getSeconds()) + "sec"
         return {
             date: date,
             checked: false,
@@ -24,7 +24,7 @@ export class Data {
     "lists": { [key: string]: Array<TodoElem> }
 
     addList(name?: string) {
-        let copy = {...this}
+        let copy = { ...this }
         if (name !== undefined) {
             copy.lists[name] = []
             return
@@ -40,27 +40,28 @@ export class Data {
         return copy
     }
     removeList(listName: string) {
-        let copy = {...this}
+        let copy = { ...this }
         delete copy.lists[listName]
         return copy
     }
 
     addElemToList(listName: string, elem?: TodoElem) {
-        let copy = {...this}
+        let copy = { ...this }
         let newelem = elem ?? new TodoElem("Task")
-        if (!copy.lists[listName].find(x => x.date == newelem.date)) {
+        if (!copy.lists[listName].find(x => x.date === newelem.date)) {
             copy.lists[listName].push(newelem)
         }
         return copy
     }
 
-    removeElemToList(listName: string, elemDate: number) {
-        let copy = {...this}
+    removeElemFromList(listName: string, elemDate: number) {
+        let copy = { ...this }
         copy.lists[listName] = copy.lists[listName].filter((x) => x.date !== elemDate)
         return copy
     }
-    modifyTextFromListElem(listName: string, elemDate: number, newText: String) {
-        let copy = {...this}
+
+    modifyTextFromListElem(listName: string, elemDate: number, newText: string) {
+        let copy = { ...this }
         copy.lists[listName] = copy.lists[listName].map((x: TodoElem) => {
             if (x.date === elemDate) {
                 x.text = newText
@@ -72,7 +73,7 @@ export class Data {
         return copy
     }
     toggleItemFromList(listName: string, elemDate: number) {
-        let copy = {...this}
+        let copy = { ...this }
 
         let found = false
         copy.lists[listName] = copy.lists[listName].map((x: TodoElem) => {
@@ -84,9 +85,31 @@ export class Data {
                 return x
             }
         })
-        if (!found) {console.warn("invalid elemData in toggleItemFromList")}
+        if (!found) { console.warn("invalid elemData in toggleItemFromList") }
         return copy
     }
+    editItemText(listName: string, elemDate: number, newText: string) {
+        let copy = { ...this }
+        copy.lists.listName = copy.lists.listName.map((x) => {
+            if (x.date !== elemDate) { return x }
+            else {
+                let y = { ...x }
+                y.text = newText
+                return y
+            }
+        })
+        return copy
+    }
+
+    renameList(listName: string, newName: string) {
+        if (listName === newName) return this
+        let copy = { ...this }
+        copy.lists[newName] = copy.lists[listName]
+        delete copy.lists[listName]
+        return copy
+    }
+
+
     listEntries() {
         return Object.entries(this.lists)
     }
@@ -98,10 +121,12 @@ export class Data {
             addList: this.addList,
             removeList: this.removeList,
             addElemToList: this.addElemToList,
-            removeElemToList: this.removeElemToList,
+            removeElemFromList: this.removeElemFromList,
             modifyTextFromListElem: this.modifyTextFromListElem,
             toggleItemFromList: this.toggleItemFromList,
             listEntries: this.listEntries,
+            renameList: this.renameList,
+            editItemText: this.editItemText,
         }
     }
 }
