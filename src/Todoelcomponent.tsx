@@ -23,6 +23,23 @@ function Todoelcomponent(props: { value: TodoElem, pprops: ListProps, setData: a
 
 
     return (
+        <div className='vbox expandX test' style={{
+            border: "black 1px solid",
+            backgroundColor: "gainsboro",
+        }}>
+            <div style={{
+                minHeight: 20,
+                margin: "auto"
+            }}>
+                {props.value.dateString.split("\n")[0]}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {props.value.dateString.split("\n")[1]}
+            </div>
+            <div className='hbox space-between expandXY self-elem'
+                style={{
+                    backgroundColor: bgColor
+                }}
+            >
                 <button
                     className=''
                     style={{ ...buttonStyle }}
