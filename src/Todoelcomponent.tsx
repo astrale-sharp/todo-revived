@@ -23,25 +23,60 @@ function Todoelcomponent(props: { value: TodoElem, pprops: ListProps, setData: a
 
 
     return (
-        <div className='hbox space-between expandXY self-elem'>
-            <button
-                className=''
-                style={{ ...buttonStyle }}
-                onClick={() => setData((data: Data) => data.toggleItemFromList(pp.name, props.value.date))}
-            >
-                <div className='reset'
-                    style={{ margin: "auto", padding: "auto" }}>
-                    {mark}
-                </div>
-            </button>
-            <div>{props.value.text}</div>
-            <button
-                onClick={() => { setData((data: Data) => data.removeElemToList(pp.name, props.value.date)) }}
-                style={{ color: "red", ...buttonStyle }}>
-                <div className='' style={{ margin: "auto", padding: "auto", }}>
-                    x
-                </div>
-            </button>
+                <button
+                    className=''
+                    style={{ ...buttonStyle }}
+                    onClick={() => setData((data: Data) => data.toggleItemFromList(pp.name, props.value.date))}
+                >
+                    <div className='reset'
+                        style={{ margin: "auto", padding: "auto" }}>
+                        {mark}
+                    </div>
+                </button>
+                <div
+                    style={{
+                        margin: "auto",
+                        overflow: "auto",
+                        outlineOffset: 8,
+                        wordBreak: "break-word",
+                    }}
+                    id={props.value.date.toString()}
+                    key={props.value.date.toString()}
+                    contentEditable
+                    suppressContentEditableWarning
+                    onKeyDown={
+                        (key) => {
+                            if (key.key === 'Enter') {
+                                key.preventDefault()
+                                key.currentTarget.blur()
+                                let text = document.getElementById(props.value.date.toString())?.innerText ?? "."
+                                text = text.replaceAll("\n", "")
+                                if (text === "" || text === "\n") {
+                                    text = props.value.text; document.getElementById(props.value.date.toString())!.innerText = props.value.text
+                                }
+                                console.log("`", text, "`")
+                                props.setData((data: Data) => data.modifyTextFromListElem(pp.name, props.value.date, text))
+                            }
+                            if (key.key === "Escape") {
+                                document.getElementById(props.value.date.toString())!.innerText = props.value.text
+                            }
+                        }
+                    }
+
+
+                >{props.value.text}</div>
+                <button
+                    onClick={() => { setData((data: Data) => data.removeElemFromList(pp.name, props.value.date)) }}
+                    style={{ color: "red", ...buttonStyle }}>
+                    <div className=''
+                        style={{
+                            margin: "auto",
+                            padding: "auto",
+                        }}>
+                        x
+                    </div>
+                </button>
+            </div>
         </div>
     );
 }
