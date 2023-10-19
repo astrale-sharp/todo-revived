@@ -30,14 +30,23 @@ export type ListProps = {
 // name
 // elements
 function Listcontainer(props: ListProps) {
-    let elements = props.elements.map((x: TodoElem) =>
-        <Todoelcomponent
-            key={x.date}
-            value={x}
-            setData={props.setData}
-            pprops={props}
-        ></Todoelcomponent>
-    );
+
+    let [checkedVisible, SetCheckedVisible] = useState(false)
+
+
+    let elements = props.elements
+        .sort((a, b) => a.date - b.date)
+        .map((x: TodoElem) =>
+            [x.checked,
+            <Todoelcomponent
+                key={x.date}
+                value={x}
+                setData={props.setData}
+                pprops={props}
+            ></Todoelcomponent>]
+        );
+    let unchecked = elements.filter(([checked, el]) => !checked).map(([_, el]) => el)
+    let checked = elements.filter(([checked, el]) => checked).map(([_, el]) => el)
 
     return (
         <div id="todo-list-container" className="vbox expandY">
