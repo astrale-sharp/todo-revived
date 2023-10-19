@@ -9,8 +9,11 @@ const init = () => {
   let data = new Data()
   let listName = "My dang list"
   data.addList(listName)
-  data.addElemToList(listName, new TodoElem("Do the thing", Date.now() - 1000 * 3600))// one hour ago
-  data.addElemToList(listName, new TodoElem("Wake up", Date.now()))// one hour ago
+  // data.addElemToList(listName, new TodoElem("Do the thing", Date.now() - 1000 * 3600))// one hour ago
+  // data.addElemToList(listName, new TodoElem("Wake up", Date.now()))// one hour ago
+  data.addElemToList(listName, new TodoElem("DragnDrop todo's", Date.now()+1))// one hour ago
+  data.addElemToList(listName, new TodoElem("select + anim lists", Date.now()+2))// one hour ago
+  data.addElemToList(listName, new TodoElem("Server connect", Date.now()+3))// one hour ago
   return data
 }
 
