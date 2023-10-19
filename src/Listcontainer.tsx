@@ -65,6 +65,16 @@ function Listcontainer(props: ListProps) {
                     minHeight: 700,
                 }}>
                 {elements}
+                
+                <button
+                    onClick={() => { props.setData((data: Data) => data.addElemToList(props.name)) }}
+                    style={{
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        marginTop: 5,
+                        marginBottom: 5,
+                    }}> <span>+</span></button>
+
             </div>
         </div>
     );
