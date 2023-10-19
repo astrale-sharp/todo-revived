@@ -40,13 +40,17 @@ function App() {
 
   return (
     <div id="root" className="vbox">
-      <div className="hbox expandX center space-around">
+      <div className="hbox center space-around"
+        style={{ width: "100vw", position: "sticky" }}
+      >
         <div style={{
-          marginTop: 20,
-          marginBottom: 20,
+          margin: "auto",
+          marginTop: 15,
+          marginBottom: 15,
           padding: 15,
           borderRadius: 10,
           backgroundColor: "rgb(179, 154, 154)",
+          userSelect: "none",
         }}>TODO APP
         </div>
       </div>
@@ -59,7 +63,11 @@ function App() {
         {list_selected_el}
         {list_unselected_el}
       </div>
-      <footer className="box footer expandXY expandCXY" style={{ minHeight: 70 }}>
+      <footer className="box footer expandCXY" style={{ 
+        minHeight: 70, 
+        position: "sticky", 
+        width: "100vw",
+        }}>
         <div className='center'>Not connected to the server</div>
       </footer>
     </div>
