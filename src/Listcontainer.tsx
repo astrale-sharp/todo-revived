@@ -79,8 +79,11 @@ function Listcontainer(props: ListProps) {
 
             <div className="vbox expandXY"
                 style={{
-                    minWidth: 300,
+                    minWidth: 320,
                     minHeight: 700,
+                    width: 320,
+                    // overflow: "auto",
+
                 }}>
                 {unchecked}
 
@@ -91,6 +94,9 @@ function Listcontainer(props: ListProps) {
                         marginRight: "auto",
                         marginTop: 5,
                         marginBottom: 5,
+                    }}> <span>+</span>
+                </button>
+
                 {checkedVisible ? checked : null}
 
             </div>
