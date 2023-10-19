@@ -21,7 +21,7 @@ function App() {
   //list data
   let [data, setData] = useState<Data>(init())
   // selected/highlighted data
-  const [listSelector, setListSelector] = useState<Array<string>>([])
+  const [listSelector] = useState<Array<string>>([])
 
   let list_selected = data.listEntries().filter(([list_name, todos]) => listSelector.includes(list_name))
   let list_unselected = data.listEntries().filter(([list_name, todos]) => !listSelector.includes(list_name))

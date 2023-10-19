@@ -15,6 +15,7 @@ const buttonStyle = {
 function Listselector(props: { lists: string[], setData: any }) {
     let elems = props.lists.map(name => <Todolistcomponent
         listname={name}
+        key={"select-" + name}
         setData={props.setData}
     >
     </Todolistcomponent>)

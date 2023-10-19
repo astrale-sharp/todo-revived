@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { TodoElem, Data } from './interface'
-import { ListProps } from "./Listcontainer"
+import React, { } from 'react';
+import { Data } from './interface'
+import { } from "./Listcontainer"
 import './App.css';
 
 
