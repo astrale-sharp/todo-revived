@@ -56,6 +56,15 @@ function Listcontainer(props: ListProps) {
                     backgroundColor: "aliceblue",
                     minHeight: 30
                 }}>
+
+                <button
+                    style={{
+                        backgroundColor: checkedVisible ? "lightgreen" : "",
+                        ...buttonStyle
+                    }}
+                    onClick={(x) => SetCheckedVisible(x => !x)}>
+                    &#9728;
+                </button>
                 <div
                     className="expandX center">
                     {props.name}</div>
@@ -73,8 +82,8 @@ function Listcontainer(props: ListProps) {
                     minWidth: 300,
                     minHeight: 700,
                 }}>
-                {elements}
-                
+                {unchecked}
+
                 <button
                     onClick={() => { props.setData((data: Data) => data.addElemToList(props.name)) }}
                     style={{
@@ -82,7 +91,7 @@ function Listcontainer(props: ListProps) {
                         marginRight: "auto",
                         marginTop: 5,
                         marginBottom: 5,
-                    }}> <span>+</span></button>
+                {checkedVisible ? checked : null}
 
             </div>
         </div>
