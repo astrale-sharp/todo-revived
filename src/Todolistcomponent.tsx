@@ -20,9 +20,33 @@ function Todolistcomponent(props: { listname: string, setData: any, children: ne
     return (
         <div className='hbox space-between expandXY' style={{
             backgroundColor: "aliceblue",
-            minHeight: 50
+            minHeight: 50,
+            border: "black 1px solid"
         }}>
-            <div style={{ margin: "auto" }}>{props.listname}</div>
+            <div
+                id={props.listname}
+                key={props.listname}
+                contentEditable
+                suppressContentEditableWarning
+                onKeyDown={
+                    (key) => {
+                        if (key.key === 'Enter') {
+                            key.preventDefault()
+                            let text = document.getElementById(props.listname)?.innerText ?? " . "
+                            text = text.replaceAll("\n", "")
+                            if (text === "") { text = props.listname; document.getElementById(props.listname)!.innerText = props.listname }
+                            console.log("`", text, "`")
+                            props.setData((data: Data) => data.renameList(props.listname, text))
+                        }
+                        if (key.key === "Escape") {
+                            document.getElementById(props.listname)!.innerText = props.listname
+                        }
+                    }
+                }
+                style={{
+                    margin: "auto",
+                    outlineOffset: 4,
+                }}>{props.listname}</div>
             <button
                 onClick={x => props.setData((data: Data) => data.removeList(props.listname))}
                 style={{ color: "red", ...buttonStyle }}>
