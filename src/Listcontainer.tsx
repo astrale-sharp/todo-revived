@@ -21,7 +21,7 @@ export type ListProps = {
     setData: any,
     name: string,
     elements: TodoElem[],
-    [key: string]: any,
+    children: never[]
 }
 
 // props:
