@@ -109,6 +109,17 @@ export class Data {
         return copy
     }
 
+    moveElemFromToList(listTo: string, elemDate: number) {
+        let copy = { ...this }
+        let [listFrom, _] = copy.listEntries().find(
+            ([_, todos]) => todos.find(x => x.date === elemDate) !== undefined
+        )!
+        let idx = copy.lists[listFrom].findIndex((elem) => elem.date == elemDate)
+        let elem = copy.lists[listFrom][idx]
+        copy.lists[listFrom].splice(idx,1) 
+        copy.lists[listTo].push(elem)
+        return copy
+    }
 
     listEntries() {
         return Object.entries(this.lists)
@@ -127,6 +138,7 @@ export class Data {
             listEntries: this.listEntries,
             renameList: this.renameList,
             editItemText: this.editItemText,
+            moveElemFromToList: this.moveElemFromToList
         }
     }
 }
