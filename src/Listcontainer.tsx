@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Data, TodoElem } from './interface'
 import Todoelcomponent from "./Todoelcomponent"
 import './App.css';
+import { useDroppable } from '@dnd-kit/core';
 
 const buttonStyle = {
     minWidth: 7,
@@ -30,9 +31,13 @@ export type ListProps = {
 // name
 // elements
 function Listcontainer(props: ListProps) {
-
     let [checkedVisible, SetCheckedVisible] = useState(false)
+    const { isOver, setNodeRef } = useDroppable({
+        id: props.name,
+        data: { listTo: props.name },
+    });
 
+    const borderColor = isOver ? "red" : "black";
 
     let elements = props.elements
         .sort((a, b) => a.date - b.date)
@@ -49,7 +54,14 @@ function Listcontainer(props: ListProps) {
     let checked = elements.filter(([checked, el]) => checked).map(([_, el]) => el)
 
     return (
-        <div id="todo-list-container" className="vbox expandY">
+        <div id={props.name}
+            className="vbox expandY"
+            ref={setNodeRef}
+            style={{
+                backgroundColor: "aliceblue",
+                border: "1px solid",
+                borderColor: borderColor
+            }}>
             <div className="center expandXY hbox space-between"
                 style={{
                     border: "1px black solid",

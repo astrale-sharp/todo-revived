@@ -1,6 +1,8 @@
 import React, { } from 'react';
 import { TodoElem, Data } from './interface'
 import { ListProps } from "./Listcontainer"
+import { useDraggable } from '@dnd-kit/core';
+import { CSS } from '@dnd-kit/utilities';
 import './App.css';
 
 
@@ -21,20 +23,60 @@ function Todoelcomponent(props: { value: TodoElem, pprops: ListProps, setData: a
     let bgColor = props.value.checked ? "lightgreen" : ""
     let pp = props.pprops
     let setData = pp.setData
+    let textId = "text-" + props.value.date.toString()
+
+    function handleKeyDown(key: React.KeyboardEvent<HTMLDivElement>) {
+        if (key.key === 'Enter') {
+            key.preventDefault()
+            key.currentTarget.blur()
+            let text = document.getElementById(textId)?.innerText ?? "."
+            text = text.replaceAll("\n", "")
+            if (text === "" || text === "\n") {
+                text = props.value.text; document.getElementById(textId)!.innerText = props.value.text
+            }
+            console.log("`", text, "`")
+            props.setData((data: Data) => data.modifyTextFromListElem(pp.name, props.value.date, text))
+        }
+        if (key.key === "Escape") {
+            document.getElementById(textId)!.innerText = props.value.text
+        }
+    }
+
+    const { attributes, listeners, setNodeRef, transform } = useDraggable({
+        id: props.value.date.toString(),
+        data: props.value
+    });
+    const style = {
+        // Outputs `translate3d(x, y, 0)`
+        transform: CSS.Translate.toString(transform),
+    };
 
 
     return (
-        <div className='vbox expandX test' style={{
-            border: "black 1px solid",
-            backgroundColor: "gainsboro",
-        }}>
-            <div style={{
-                minHeight: 20,
-                margin: "auto"
+        <div
+            className='vbox expandX'
+            id={props.value.date.toString()}
+            style={{
+                border: "black 1px solid",
+                backgroundColor: "gainsboro",
+                ...style
             }}>
-                {props.value.dateString.split("\n")[0]}
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {props.value.dateString.split("\n")[1]}
+            <div
+                className='hbox expandX space-around auto-marginC'
+                ref={setNodeRef}
+                {...listeners}
+                {...attributes}
+                style={{
+                    minHeight: 30,
+                    margin: "auto",
+                    cursor: "move",
+                }}>
+                <div>
+                    {props.value.dateString.split("\n")[0]}
+                </div>
+                <div>
+                    {props.value.dateString.split("\n")[1]}
+                </div>
             </div>
             <div className='hbox space-between expandXY self-elem'
                 style={{
@@ -58,28 +100,11 @@ function Todoelcomponent(props: { value: TodoElem, pprops: ListProps, setData: a
                         outlineOffset: 8,
                         wordBreak: "break-word",
                     }}
-                    id={props.value.date.toString()}
+                    id={textId}
                     key={props.value.date.toString()}
                     contentEditable
                     suppressContentEditableWarning
-                    onKeyDown={
-                        (key) => {
-                            if (key.key === 'Enter') {
-                                key.preventDefault()
-                                key.currentTarget.blur()
-                                let text = document.getElementById(props.value.date.toString())?.innerText ?? "."
-                                text = text.replaceAll("\n", "")
-                                if (text === "" || text === "\n") {
-                                    text = props.value.text; document.getElementById(props.value.date.toString())!.innerText = props.value.text
-                                }
-                                console.log("`", text, "`")
-                                props.setData((data: Data) => data.modifyTextFromListElem(pp.name, props.value.date, text))
-                            }
-                            if (key.key === "Escape") {
-                                document.getElementById(props.value.date.toString())!.innerText = props.value.text
-                            }
-                        }
-                    }
+                    onKeyDown={handleKeyDown}
 
 
                 >{props.value.text}</div>

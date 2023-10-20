@@ -3,6 +3,7 @@ import { Data, TodoElem } from './interface'
 import './App.css';
 import Listcontainer from './Listcontainer'
 import Listselector from './Listselector';
+import { DndContext, DragEndEvent } from '@dnd-kit/core';
 
 
 const init = () => {
@@ -18,6 +19,12 @@ const init = () => {
 }
 
 function App() {
+  function handleDragEnd(e: DragEndEvent) {
+    if (!e.over?.data.current) return
+    if (!e.active.data.current) return
+    setData((data) => data.moveElemFromToList(e.over?.data.current!.listTo, e.active.data.current!.date))
+  }
+
   //list data
   let [data, setData] = useState<Data>(init())
   // selected/highlighted data
@@ -39,38 +46,40 @@ function App() {
   let list_unselected_el = map(list_unselected)
 
   return (
-    <div id="root" className="vbox">
-      <div className="hbox center space-around"
-        style={{ width: "100vw", position: "sticky" }}
-      >
-        <div style={{
-          margin: "auto",
-          marginTop: 15,
-          marginBottom: 15,
-          padding: 15,
-          borderRadius: 10,
-          backgroundColor: "rgb(179, 154, 154)",
-          userSelect: "none",
-        }}>TODO APP
+    <DndContext onDragEnd={handleDragEnd}>
+      <div id="root" className="vbox">
+        <div className="hbox center space-around"
+          style={{ width: "100vw", position: "sticky" }}
+        >
+          <div style={{
+            margin: "auto",
+            marginTop: 15,
+            marginBottom: 15,
+            padding: 15,
+            borderRadius: 10,
+            backgroundColor: "rgb(179, 154, 154)",
+            userSelect: "none",
+          }}>TODO APP
+          </div>
         </div>
-      </div>
 
-      <div className="hbox expandXY">
-        <Listselector
-          lists={Object.keys(data.lists)}
-          setData={setData}
-        ></Listselector>
-        {list_selected_el}
-        {list_unselected_el}
-      </div>
-      <footer className="box footer expandCXY" style={{ 
-        minHeight: 70, 
-        position: "sticky", 
-        width: "100vw",
+        <div className="hbox expandXY">
+          <Listselector
+            lists={Object.keys(data.lists)}
+            setData={setData}
+          ></Listselector>
+          {list_selected_el}
+          {list_unselected_el}
+        </div>
+        <footer className="box footer expandCXY" style={{
+          minHeight: 70,
+          position: "sticky",
+          width: "100vw",
         }}>
-        <div className='center'>Not connected to the server</div>
-      </footer>
-    </div>
+          <div className='center'>Not connected to the server</div>
+        </footer>
+      </div>
+    </DndContext>
 
 
   );
