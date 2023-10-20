@@ -23,6 +23,19 @@ export class TodoElem {
 export class Data {
     "lists": { [key: string]: Array<TodoElem> }
 
+    __ToJSON() {
+        // return "love"
+        return JSON.stringify(Object.entries(this.lists).map(([name, todo]) => [name, todo.map(x => JSON.stringify(x))]))
+    }
+
+    __FromJSON(data: string) {
+        let instance = new Data()
+        let data0: Array<[string, string[]]> = JSON.parse(data)
+        let data1: Array<[string, TodoElem[]]> = data0.map(([k, v]) => [k, v.map(x => JSON.parse(x))])
+        data1.forEach(([x,y]) => instance.lists[x] = y)
+        return instance
+    }
+
     addList(name?: string) {
         let copy = { ...this }
         if (name !== undefined) {
@@ -116,7 +129,7 @@ export class Data {
         )!
         let idx = copy.lists[listFrom].findIndex((elem) => elem.date == elemDate)
         let elem = copy.lists[listFrom][idx]
-        copy.lists[listFrom].splice(idx,1) 
+        copy.lists[listFrom].splice(idx, 1)
         copy.lists[listTo].push(elem)
         return copy
     }
@@ -124,7 +137,6 @@ export class Data {
     listEntries() {
         return Object.entries(this.lists)
     }
-
 
     constructor() {
         return {
@@ -138,7 +150,9 @@ export class Data {
             listEntries: this.listEntries,
             renameList: this.renameList,
             editItemText: this.editItemText,
-            moveElemFromToList: this.moveElemFromToList
+            moveElemFromToList: this.moveElemFromToList,
+            __ToJSON: this.__ToJSON,
+            __FromJSON: this.__FromJSON,
         }
     }
 }
