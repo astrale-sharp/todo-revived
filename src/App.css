@@ -121,6 +121,10 @@
   /* border: black 1px solid; */
 }
 
+[class*="list-selector-element"]:hover {
+   opacity: 0.8;
+}
+
 [class*="footer"] {
   margin: 0;
   inset: 0;

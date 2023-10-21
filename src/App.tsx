@@ -43,7 +43,7 @@ function getServer(callback: any) {
 
 function App() {
   let [data, setData] = useState<Data | undefined>(undefined)
-  const [listSelector] = useState<Array<string>>([])
+  const [listSelector, setListSelector] = useState<Array<string>>([])
 
   function handleDragEnd(e: DragEndEvent) {
     if (!e.over?.data.current) return
@@ -90,13 +90,15 @@ function App() {
         </div>
 
         <div className="hbox " style={{ gap: 20 }}>
-          <div style={{width: 10}}></div>
+          <div style={{ width: 10 }}></div>
 
           <Listselector
+            listSelector={listSelector}
+            setListSelector={setListSelector}
             lists={Object.keys(data!.lists)}
             setData={setData}
           ></Listselector>
-          
+
           {list_selected_el}
           {list_unselected_el}
         </div>

@@ -12,9 +12,16 @@ const buttonStyle = {
 
 
 
-function Listselector(props: { lists: string[], setData: any }) {
+function Listselector(props: {
+    lists: string[],
+    setData: any,
+    setListSelector: any,
+    listSelector: Array<string>
+}) {
     let elems = props.lists.map(name => <Todolistcomponent
+        setListSelector={props.setListSelector}
         listname={name}
+        selected={props.listSelector.includes(name)}
         key={"select-" + name}
         setData={props.setData}
     >
@@ -30,7 +37,7 @@ function Listselector(props: { lists: string[], setData: any }) {
                 style={{
                     minWidth: 300, minHeight: 300
                 }}>
-                <div style={{minHeight:10}}></div>
+                <div style={{ minHeight: 10 }}></div>
                 {elems}
 
                 <button
