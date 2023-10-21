@@ -18,7 +18,7 @@ function Listselector(props: {
     setListSelector: any,
     listSelector: Array<string>
 }) {
-    let elems = props.lists.map(name => <Todolistcomponent
+    let elems = props.lists.sort().map(name => <Todolistcomponent
         setListSelector={props.setListSelector}
         listname={name}
         selected={props.listSelector.includes(name)}

@@ -35,10 +35,10 @@ function getServer(callback: any) {
     .then((data) => new Data().__FromJSON(JSON.stringify(data)))
     .then((data) => callback(data))
     .catch((err) => {
-      console.log(err.message);
-    });
+      console.warn("Couldn't connect to the server", "if you're on github.io it's expected behavior, no server here")
+      callback(new Data())
+    })
 }
-
 
 
 function App() {

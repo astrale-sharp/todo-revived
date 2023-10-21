@@ -22,8 +22,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "server-build" : "npx tsc --esModuleInterop server/server.ts",
-    "server-start" :"node server/server.js",
+    "server-build": "npx tsc --esModuleInterop server/server.ts",
+    "server-start": "node server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

@@ -135,7 +135,9 @@ export class Data {
     }
 
     listEntries() {
-        return Object.entries(this.lists).toSorted(([a,_],[b,__]) => a.localeCompare(b))
+        let list = Object.entries(this.lists)
+        list.sort(([a,_],[b,__]) => a.localeCompare(b))
+        return list
     }
 
     constructor() {
