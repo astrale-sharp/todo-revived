@@ -93,20 +93,13 @@ function App() {
           <div style={{width: 10}}></div>
 
           <Listselector
-            lists={Object.keys(data.lists)}
+            lists={Object.keys(data!.lists)}
             setData={setData}
           ></Listselector>
           
           {list_selected_el}
           {list_unselected_el}
         </div>
-        <footer className="box footer expandCXY" style={{
-          minHeight: 70,
-          position: "sticky",
-          width: "100vw",
-        }}>
-          <div className='center'>Not connected to the server</div>
-        </footer>
       </div>
     </DndContext>
 
