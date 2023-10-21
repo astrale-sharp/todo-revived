@@ -21,20 +21,16 @@ function Listselector(props: { lists: string[], setData: any }) {
     </Todolistcomponent>)
 
     return (
-        <div className="vbox expandY" style={{ minHeight: "100vh" }}>
-            <div className="expandX box"
-                style={{
-                    border: "1px black solid",
-                    minHeight: 30,
-                    backgroundColor: "lightgreen",
-                }}>
-                <div style={{ userSelect: "none", margin: "auto" }}>Todo lists</div>
+        <div className="vbox list-selector-root">
+            <div className="expandX box list-selector-title auto-marginC">
+                <div>Todo lists</div>
             </div>
             <div
                 className="vbox"
                 style={{
                     minWidth: 300, minHeight: 300
                 }}>
+                <div style={{minHeight:10}}></div>
                 {elems}
 
                 <button

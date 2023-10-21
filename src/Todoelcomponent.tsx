@@ -20,7 +20,8 @@ const buttonStyle = {
 
 function Todoelcomponent(props: { value: TodoElem, pprops: ListProps, setData: any }) {
     let mark = props.value.checked ? <span>✔</span> : <span>&nbsp;&nbsp;</span>
-    let bgColor = props.value.checked ? "lightgreen" : ""
+    let bgColor = props.value.checked ? "var(--correct-green)" : ""
+    let textColor = props.value.checked? "gray" : ""
     let pp = props.pprops
     let setData = pp.setData
     let textId = "text-" + props.value.date.toString()
@@ -53,74 +54,78 @@ function Todoelcomponent(props: { value: TodoElem, pprops: ListProps, setData: a
 
 
     return (
-        <div
-            className='vbox expandX'
-            id={props.value.date.toString()}
-            style={{
-                border: "black 1px solid",
-                backgroundColor: "gainsboro",
-                ...style
-            }}>
+        <div className='expandX' style={{height : 150}}>
             <div
-                className='hbox expandX space-around auto-marginC'
-                ref={setNodeRef}
-                {...listeners}
-                {...attributes}
+                className='vbox todo-element-root'
+                id={props.value.date.toString()}
                 style={{
-                    minHeight: 30,
-                    margin: "auto",
-                    cursor: "move",
+                    ...style,
+                    minWidth : "90%",
+                    margin : "auto"
                 }}>
-                <div>
-                    {props.value.dateString.split("\n")[0]}
-                </div>
-                <div>
-                    {props.value.dateString.split("\n")[1]}
-                </div>
-            </div>
-            <div className='hbox space-between expandXY self-elem'
-                style={{
-                    backgroundColor: bgColor
-                }}
-            >
-                <button
-                    className=''
-                    style={{ ...buttonStyle }}
-                    onClick={() => setData((data: Data) => data.toggleItemFromList(pp.name, props.value.date))}
-                >
-                    <div className='reset'
-                        style={{ margin: "auto", padding: "auto" }}>
-                        {mark}
-                    </div>
-                </button>
                 <div
+                    className='todo-element-date expandX hbox space-around auto-marginC'
+                    ref={setNodeRef}
+                    {...listeners}
+                    {...attributes}
                     style={{
+                        minHeight: 30,
                         margin: "auto",
-                        overflow: "auto",
-                        outlineOffset: 8,
-                        wordBreak: "break-word",
+                        cursor: "move",
+                    }}>
+                    <div>
+                        {props.value.dateString.split("\n")[0]}
+                    </div>
+                    <div>
+                        {props.value.dateString.split("\n")[1]}
+                    </div>
+                </div>
+                <div className='hbox space-between expandXY todo-element-text'
+                    style={{
+                        backgroundColor: bgColor,
+                        color : textColor
                     }}
-                    id={textId}
-                    key={props.value.date.toString()}
-                    contentEditable
-                    suppressContentEditableWarning
-                    onKeyDown={handleKeyDown}
-
-
-                >{props.value.text}</div>
-                <button
-                    onClick={() => { setData((data: Data) => data.removeElemFromList(pp.name, props.value.date)) }}
-                    style={{ color: "red", ...buttonStyle }}>
-                    <div className=''
+                >
+                    <button
+                        className=''
+                        style={{ ...buttonStyle }}
+                        onClick={() => setData((data: Data) => data.toggleItemFromList(pp.name, props.value.date))}
+                    >
+                        <div className='reset'
+                            style={{ margin: "auto", padding: "auto" }}>
+                            {mark}
+                        </div>
+                    </button>
+                    <div
                         style={{
                             margin: "auto",
-                            padding: "auto",
-                        }}>
-                        x
-                    </div>
-                </button>
+                            overflow: "auto",
+                            outlineOffset: 8,
+                            wordBreak: "break-word",
+                        }}
+                        id={textId}
+                        key={props.value.date.toString()}
+                        contentEditable
+                        suppressContentEditableWarning
+                        onKeyDown={handleKeyDown}
+
+
+                    >{props.value.text}</div>
+                    <button
+                        onClick={() => { setData((data: Data) => data.removeElemFromList(pp.name, props.value.date)) }}
+                        style={{ color: "red", ...buttonStyle }}>
+                        <div className=''
+                            style={{
+                                margin: "auto",
+                                padding: "auto",
+                            }}>
+                            x
+                        </div>
+                    </button>
+                </div>
             </div>
         </div>
+
     );
 }
 

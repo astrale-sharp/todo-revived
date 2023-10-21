@@ -48,26 +48,21 @@ function App() {
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <div id="root" className="vbox">
-        <div className="hbox center space-around"
-          style={{ width: "100vw", position: "sticky" }}
-        >
-          <div style={{
-            margin: "auto",
-            marginTop: 15,
-            marginBottom: 15,
-            padding: 15,
-            borderRadius: 10,
-            backgroundColor: "rgb(179, 154, 154)",
-            userSelect: "none",
-          }}>TODO APP
+        <div className="hbox space-around expandX">
+          <div
+            className='app-name'
+          >TODO APP
           </div>
         </div>
 
-        <div className="hbox expandXY">
+        <div className="hbox " style={{ gap: 20 }}>
+          <div style={{width: 10}}></div>
+
           <Listselector
             lists={Object.keys(data.lists)}
             setData={setData}
           ></Listselector>
+          
           {list_selected_el}
           {list_unselected_el}
         </div>
