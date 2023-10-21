@@ -7,8 +7,8 @@ export class TodoElem {
     constructor(text: string, date: number = Date.now()) {
         let d = new Date(date)
         let d_fmt = String(d.toLocaleDateString()) + "\n"
-            + String(d.getHours()) + "h:"
-            + String(d.getMinutes()) + "min:"
+            + String(d.getHours()) + "h "
+            + String(d.getMinutes()) + "min "
             + String(d.getSeconds()) + "sec"
         return {
             date: date,
