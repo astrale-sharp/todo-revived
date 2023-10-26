@@ -31,7 +31,7 @@ export type ListProps = {
 // name
 // elements
 function Listcontainer(props: ListProps) {
-    let [checkedVisible, SetCheckedVisible] = useState(false)
+    let [checkedVisible, SetCheckedVisible] = useState(true)
     const { isOver, setNodeRef } = useDroppable({
         id: props.name,
         data: { listTo: props.name },

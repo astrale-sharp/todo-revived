@@ -21,7 +21,7 @@ const buttonStyle = {
 function Todoelcomponent(props: { value: TodoElem, pprops: ListProps, setData: any }) {
     let mark = props.value.checked ? <span>✔</span> : <span>&nbsp;&nbsp;</span>
     let bgColor = props.value.checked ? "var(--correct-green)" : ""
-    let textColor = props.value.checked? "gray" : ""
+    let textColor = props.value.checked? "var(--color5)" : ""
     let pp = props.pprops
     let setData = pp.setData
     let textId = "text-" + props.value.date.toString()
